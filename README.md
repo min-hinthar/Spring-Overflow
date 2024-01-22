@@ -1,5 +1,5 @@
 # Spring-Overflow
-Spring Overflow is a web app that combines web development and social justice. It allows users to ask and answer questions about web development, while supporting the Burma Spring Revolution and Civil Disobedience Movement.
+Spring Overflow is a community-centered platform/web app that combines web development and social justice, allowing users to ask and answer questions about web development, coding and programming, while supporting the Burma Spring Revolution and Civil Disobedience Movement.
 
 ## Overview
 This web app is built with Spring Boot, Thymeleaf, MySQL, Elasticsearch, Redis, RabbitMQ, WebSocket, Docker, and AWS. It has a gamification system that rewards users with reputation points and privileges for their contributions. It also supports the Burma Spring Revolution and Civil Disobedience Movement, a nonviolent resistance movement that opposes the military coup in Myanmar. You can create and share questions and answers that raise awareness and solidarity for the cause. You can also donate to verified organizations and individuals who are fighting for democracy and human rights in Myanmar.
