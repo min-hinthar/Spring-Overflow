@@ -4,6 +4,14 @@
 
 @import url("../styles/theme.css");
 
+main {
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 body {
   font-family: "Inter", sans-serif;
 }
