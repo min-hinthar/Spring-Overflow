@@ -4,13 +4,13 @@ import { Badge } from "@/components/ui/badge"
 
 
 interface Props {
-    _id: number,
+    _id: string,
     name: string,
     totalQuestions?: number,
     showCount?: boolean
 }
 
-const RenderTags = ({ _id, name, totalQuestions, showCount }: Props) => {
+const RenderTag = ({ _id, name, totalQuestions, showCount }: Props) => {
   return (
     <Link 
         href={`/tags/${_id}`}
@@ -29,4 +29,4 @@ const RenderTags = ({ _id, name, totalQuestions, showCount }: Props) => {
   )
 }
 
-export default RenderTags
+export default RenderTag
