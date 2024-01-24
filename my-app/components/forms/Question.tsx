@@ -3,6 +3,8 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
+import React, { useRef } from 'react';
+import { Editor } from '@tinymce/tinymce-react';
 
 import {
     Form,
@@ -19,6 +21,8 @@ import { Input } from "@/components/ui/input"
 import { QuestionsSchema } from "@/lib/actions/validations"
 
 const Question = () => {
+
+// SHADCN.form
     // 1. Define your form.
     const form = useForm<z.infer<typeof QuestionsSchema>>({
     resolver: zodResolver(QuestionsSchema),
@@ -35,6 +39,9 @@ const Question = () => {
     // ✅ This will be type-safe and validated.
     console.log(values)
     }
+
+// Tiny.Cloud.React Editor
+    const editorRef = useRef(null);
 
     return (
     <Form {...form}>
@@ -72,6 +79,27 @@ const Question = () => {
                 </FormLabel>
                 <FormControl className="nt-3.5">
                     {/* TODO: Add an Editor Component for Description of Form */}
+                    <Editor
+                        apiKey={process.env.NEXT_PUBLIC_TINY_EDITOR_API_KEY}
+                        onInit={(evt, editor) => {
+                            // @ts-ignore
+                            editorRef.current = editor
+                        }}
+                        initialValue=""
+                        init={{
+                        height: 350,
+                        plugins: [      'advlist', 'codesample', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
+                        'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
+                        'media', 'table', 'emoticons', 'advtemplate', 'help'
+                        ],
+                        toolbar: 'undo redo | codesample | styles | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullscreen | forecolor backcolor emoticons | help',
+                        menu: {
+                            favs: { title: 'My Favorites', items: 'code visualaid | searchreplace | emoticons' }
+                        },
+                        menubar: true,
+                        content_style: 'body { font-family:Inter; font-size:16px }'
+                        }}
+                    />
 
                 </FormControl>
             <FormDescription className="body-regular mt-2.5 text-light-500">
