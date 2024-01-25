@@ -5,54 +5,15 @@ import NoResult from "@/components/shared/NoResult";
 import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
 import { Button } from "@/components/ui/button";
 import { HomePageFilters } from "@/constants/filters";
+import { getQuestions } from "@/lib/actions/question.action";
 import Link from "next/link";
 
-const questions = [
-  {
-    _id: "1", 
-    title: "Cascading Deletes in SQL Alchemy", 
-    tags: [{ _id: "1", name: "python" }, { _id: "2", name: "sql"}],
-    author: {
-      _id: "1",
-      name: "Min K",
-      picture: "https://example.com/min-k.jpg"
-    },
-    upvotes: 10,
-    views: 103,
-    answers: [{}, {}, {}],
-    createdAt: new Date("2023-12-01T10:00:00.000Z")
-  },
-  {
-    _id: "2", 
-    title: "How do I use Express as a custom server in NextJS", 
-    tags: [{ _id: "3", name: "nextjs" }, { _id: "4", name: "express"}],
-    author: {
-      _id: "1",
-      name: "Min K",
-      picture: "https://example.com/min-k.jpg"
-    },
-    upvotes: 19,
-    views: 72,
-    answers: [{}, {}, {}, {}, {}],
-    createdAt: new Date("2024-01-01T12:00:00.000Z")
-  },
-  {
-    _id: "3", 
-    title: "How to Center a Div in TailwindCSS?", 
-    tags: [{ _id: "5", name: "css" }, { _id: "6", name: "tailwind"}],
-    author: {
-      _id: "2",
-      name: "Khant M",
-      picture: "https://example.com/khant-m.jpg"
-    },
-    upvotes: 12,
-    views: 92,
-    answers: [{}, {}, {}, {}],
-    createdAt: new Date("2023-11-01T10:00:00.000Z")
-  }
-]
+export default async function Home() {
 
-export default function Home() {
+  const result = await getQuestions({});
+
+  console.log(result.questions)
+
   return (
     <>
       <div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
@@ -85,8 +46,8 @@ export default function Home() {
       <HomeFilters />
 
       <div className="mt-10 flex w-full flex-col gap-6">
-        {questions.length > 0 ? 
-        questions.map((question) => (
+        {result.questions.length > 0 ? 
+        result.questions.map((question) => (
           <QuestionCard 
             key={question._id}
             _id={question._id}
