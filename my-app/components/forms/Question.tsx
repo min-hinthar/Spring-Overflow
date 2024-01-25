@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 
 import {
@@ -18,11 +18,19 @@ import {
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
-import { QuestionsSchema } from "@/lib/actions/validations"
+import { QuestionsSchema } from "@/lib/validations"
 import { Badge } from "../ui/badge";
 import Image from "next/image";
+import { createQuestion } from "@/lib/actions/question.action";
+
+const type: any = 'create'
 
 const Question = () => {
+// Tiny.Cloud.React Editor
+    const editorRef = useRef(null);
+
+    const [isSubmitting, setIsSubmitting] = useState(false)
+
 
 // SHADCN.form
     // 1. Define your form.
@@ -36,14 +44,20 @@ const Question = () => {
     })
 
     // 2. Define a submit handler.
-    function onSubmit(values: z.infer<typeof QuestionsSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
+    async function onSubmit(values: z.infer<typeof QuestionsSchema>) {
+        setIsSubmitting(true);
+
+        try {
+            await createQuestion({});
+        } catch (error) {
+            
+        } finally {
+            setIsSubmitting(false);
+        }
+
     console.log(values)
     }
 
-// Tiny.Cloud.React Editor
-    const editorRef = useRef(null);
 
     const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, field: any) => {
         if (e.key === "Enter" && field.name === 'tags') {
@@ -119,6 +133,8 @@ const Question = () => {
                             // @ts-ignore
                             editorRef.current = editor
                         }}
+                        onBlur={field.onBlur}
+                        onEditorChange={(content) => field.onChange(content)}
                         initialValue=""
                         init={{
                         height: 350,
@@ -188,7 +204,21 @@ const Question = () => {
             </FormItem>
             )}
         />
-        <Button type="submit">Submit</Button>
+        <Button 
+            type="submit"
+            className="primary-gradient w-fit !text-light-900"
+            disabled={isSubmitting}
+        >
+            {isSubmitting ? (
+                <>
+                    {type === 'edit' ? 'Editing...' : 'Posting...' }
+                </>
+            ) : (
+                <>
+                    {type === 'edit' ? 'Edit Question' : 'Ask a Question'}
+                </>
+            )}
+        </Button>
       </form>
     </Form>
         
