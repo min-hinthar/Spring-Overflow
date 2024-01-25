@@ -81,7 +81,7 @@ if(eventType === 'user.created') {
             path: `/profile/${id}`
         })
     
-        return NextResponse.json({ message: 'Success: New User Created!', user: mongoUser})
+        return NextResponse.json({ message: 'Success: User Updated!', user: mongoUser})
     }
 
     if(eventType === 'user.deleted') {
@@ -90,7 +90,9 @@ if(eventType === 'user.created') {
         const deletedUser = await deleteUser({
             clerkId: id!,
         })
+
+        return NextResponse.json({ message: 'Success: New User Created!', user: deletedUser})
     }
 
-    return new Response('', { status: 200 })
+    return NextResponse.json({message: 'Status OK: 200'});
 }
