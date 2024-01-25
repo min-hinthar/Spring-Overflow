@@ -70,7 +70,7 @@ const Question = ({ mongoUserId }: Props) => {
             setIsSubmitting(false);
         }
 
-    console.log(values)
+    // console.log(values)
     }
 
 

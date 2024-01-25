@@ -13,7 +13,7 @@ interface CustomInputProps {
 }
 
 const LocalSearchbar = ({
-    route,
+    // route,
     iconPosition,
     imgSrc,
     placeholder,
@@ -35,7 +35,7 @@ const LocalSearchbar = ({
             type='text'
             placeholder={placeholder}
             value=""
-            onChange={() => {}}
+            // onChange={() => {}}
             className='paragraph-regular no-focus placeholder background-light800_darkgradient border-none outline-none'
         />
 
