@@ -2,7 +2,7 @@
 
 import User from "@/database/user.model";
 import { connectToDatabase } from "../mongoose"
-import { CreateAnswerParams, CreateUserParams, DeleteUserParams, UpdateUserParams } from "./shared.types";
+import { CreateUserParams, DeleteUserParams, UpdateUserParams } from "./shared.types";
 import { revalidatePath } from "next/cache";
 import Question from "@/database/question.model";
 

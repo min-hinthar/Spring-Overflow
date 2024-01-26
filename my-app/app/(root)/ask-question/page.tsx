@@ -1,6 +1,6 @@
 import Question from '@/components/forms/Question'
 import { getUserById } from '@/lib/actions/user.action';
-// import { auth } from '@clerk/nextjs';
+import { auth } from '@clerk/nextjs';
 import { redirect } from 'next/navigation';
 import React from 'react'
 
@@ -8,9 +8,7 @@ import React from 'react'
 const Page = async () => {
 
   // Get User ID from Clerk
-  // const { userId } = auth();
-
-  const userId = '789012';
+  const { userId } = auth();
 
   if (!userId) redirect('/sign-in');
 
@@ -24,7 +22,7 @@ const Page = async () => {
         Ask a Question
       </h1>
       <div className='mt-9'>
-        <Question mongoUserId={JSON.stringify(mongoUser._id)}/>
+        <Question mongoUserId={JSON.stringify(mongoUser?._id)}/>
 
       </div>
 
