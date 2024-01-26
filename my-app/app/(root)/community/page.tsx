@@ -30,7 +30,7 @@ const Page = async () => {
             iconPosition='left'
             imgSrc='/assets/icons/search.svg'
             placeholder='Search for an awesome member!'
-            otherClasses=''
+            otherClasses='flex-1'
         />
 
         <Filter 
