@@ -16,7 +16,10 @@ const AnswerSchema = new Schema({
     content: { type: String, required: true},
     upvotes: [{ type: Schema.Types.ObjectId, ref: 'User'}],
     downvotes: [{ type: Schema.Types.ObjectId, ref: 'User'}],
-    createdAt: Date
+    createdAt: {
+        type: Date,
+        default: Date.now,
+    }
 })
 
 const Answer = models.Answer || model('Answer', AnswerSchema);
