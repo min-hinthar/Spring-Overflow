@@ -16,7 +16,7 @@ interface Props {
     filter?: number,
 }
 
-const AllAnswers = async ({ questionId, userId, totalAnswers, page, filter }) => {
+const AllAnswers = async ({ questionId, userId, totalAnswers, page, filter }: Props) => {
 
     const result = await getAnswers({
         questionId
