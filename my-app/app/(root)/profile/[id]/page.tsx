@@ -93,7 +93,7 @@ const Page = async ({ params, searchParams }: URLProps) => {
                 </TabsContent>
             </Tabs>
         </div>
-    </Stats>
+    </>
   )
 }
 
