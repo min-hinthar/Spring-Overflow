@@ -15,12 +15,14 @@ interface QuestionProps {
     author: {
         _id: string,
         name: string,
-        picture: string
+        picture: string,
+        author: string,
     },
-    upvotes: number,
+    upvotes: string[],
     views: number,
     answers: Array<object>,
-    createdAt: Date
+    createdAt: Date,
+    clerkId?: string | null,
 }
 
 const QuestionCard = ({
@@ -31,7 +33,7 @@ const QuestionCard = ({
     upvotes,
     views,
     answers,
-    createdAt
+    createdAt,
 }: QuestionProps) => {
   return (
     <div className='card-wrapper p-9 sm:px-11 rounded-[10px]'>
@@ -72,7 +74,7 @@ const QuestionCard = ({
             <Metric
                 imgUrl='/assets/icons/like.svg'
                 alt='Upvotes'
-                value={formatAndDivideNumber(upvotes)}
+                value={formatAndDivideNumber(upvotes.length)}
                 title='Votes'
                 textStyles='small-medium text-dark400_light800'
             />
