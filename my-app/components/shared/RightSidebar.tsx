@@ -3,27 +3,11 @@ import Link from 'next/link'
 import React from 'react'
 import RenderTags from './RenderTag'
 import { getHotQuestions } from '@/lib/actions/question.action'
-
-const popularTags = [
-    {
-        _id: '1', name: 'JavaScript', totalQuestions: 5
-    },
-    {
-        _id: '2', name: 'React', totalQuestions: 7
-    },
-    {
-        _id: '3', name: 'Next', totalQuestions: 9
-    },
-    {
-        _id: '4' , name: 'Vue', totalQuestions: 5
-    },
-    {
-        _id: '5', name: 'Redux', totalQuestions: 4
-    },
-]
+import { getTopPopularTags } from '@/lib/actions/tag.action'
 
 const RightSidebar = async () => {
     const hotQuestions = await getHotQuestions();
+    const  popularTags = await getTopPopularTags();
 
 
   return (
@@ -63,7 +47,7 @@ const RightSidebar = async () => {
                     key={tag._id}
                     _id={tag._id}
                     name={tag.name}
-                    totalQuestions={tag.totalQuestions}
+                    totalQuestions={tag.numberOfQuestions}
                     showCount
                     />
                 ))}
