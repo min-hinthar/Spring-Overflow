@@ -41,7 +41,7 @@ const Question = ({ mongoUserId, type, questionDetails }: Props) => {
 
     const parseQuestionDetails = JSON.parse(questionDetails || '');
 
-    const groupedTags = parseQuestionDetails.tags.map((tag) => tag.name)
+    const groupedTags = parseQuestionDetails.tags.map((tag: any) => tag.name)
 
 // SHADCN.form
     // 1. Define your form.
