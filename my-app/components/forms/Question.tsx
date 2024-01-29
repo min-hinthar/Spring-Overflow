@@ -21,17 +21,17 @@ import { Input } from "@/components/ui/input"
 import { QuestionsSchema } from "@/lib/validations"
 import { Badge } from "../ui/badge";
 import Image from "next/image";
-import { createQuestion } from "@/lib/actions/question.action";
+import { createQuestion, editQuestion } from "@/lib/actions/question.action";
 import { useRouter, usePathname } from 'next/navigation'
 import { useTheme } from "@/context/ThemeProvider";
 
-const type: any = 'create';
-
 interface Props {
     mongoUserId: string,
+    type?: string,
+    questionDetails?: string,
   }
 
-const Question = ({ mongoUserId }: Props) => {
+const Question = ({ mongoUserId, type, questionDetails }: Props) => {
     const { mode } = useTheme();
 // Tiny.Cloud.React Editor
     const editorRef = useRef(null);
@@ -39,14 +39,18 @@ const Question = ({ mongoUserId }: Props) => {
     const router = useRouter();
     const pathname = usePathname();
 
+    const parseQuestionDetails = JSON.parse(questionDetails || '');
+
+    const groupedTags = parseQuestionDetails.tags.map((tag) => tag.name)
+
 // SHADCN.form
     // 1. Define your form.
     const form = useForm<z.infer<typeof QuestionsSchema>>({
     resolver: zodResolver(QuestionsSchema),
     defaultValues: {
-        title: "",
-        explanation:"",
-        tags: [],
+        title: parseQuestionDetails.title || '',
+        explanation: parseQuestionDetails.explanation || '',
+        tags: groupedTags || [],
     },
     })
 
@@ -57,15 +61,27 @@ const Question = ({ mongoUserId }: Props) => {
         // async call to MongoDB to check userId
         // submit form with params to create a Question
         try {
-            await createQuestion({
-                title: values.title,
-                content: values.explanation,
-                tags: values.tags,
-                author: JSON.parse(mongoUserId),
-                path: pathname,
-            });
 
-            router.push('/');
+            if(type === 'Edit') {
+
+                await editQuestion({
+                    questionId: parseQuestionDetails._id,
+                    title: values.title,
+                    content: values.explanation,
+                    path: pathname,
+                })
+                router.push(`/question/${parseQuestionDetails._id}`)
+            } else {
+                await createQuestion({
+                    title: values.title,
+                    content: values.explanation,
+                    tags: values.tags,
+                    author: JSON.parse(mongoUserId),
+                    path: pathname,
+                });
+                router.push('/');
+            }
+
         } catch (error) {
             
         } finally {
@@ -152,7 +168,7 @@ const Question = ({ mongoUserId }: Props) => {
                         }}
                         onBlur={field.onBlur}
                         onEditorChange={(content) => field.onChange(content)}
-                        initialValue=""
+                        initialValue={parseQuestionDetails.content || ''}
                         init={{
                         height: 350,
                         plugins: [      'advlist', 'codesample', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
@@ -189,7 +205,9 @@ const Question = ({ mongoUserId }: Props) => {
                 <FormControl className="nt-3.5">
                 {/* Need React Fragment to render React element child */}
                     <>
-                        <Input className="no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[56px] border" 
+                        <Input
+                            disabled={type === 'Edit'}
+                            className="no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[56px] border" 
                             placeholder="Add Tags!"
                             onKeyDown={(e) => handleInputKeyDown(e, field)}
                         />
@@ -199,17 +217,18 @@ const Question = ({ mongoUserId }: Props) => {
                                     <Badge 
                                         key={tag}
                                         className="subtle-medium background-light800_dark400 text-primary-500 flex items-center justify-center gap-2 rounded-md border-none px-4 py-2 capitalize"
-                                        onClick={() => handleTagRemove(tag, field)}
+                                        onClick={() => {type !== 'Edit' ? handleTagRemove(tag, field) : () => {}}}
                                     >
-
                                         {tag}
-                                        <Image
-                                            src='/assets/icons/close.svg'
-                                            alt="Close icon"
-                                            width={12}
-                                            height={12}
-                                            className="cursor-pointer object-contain invert-0 dark:invert"
-                                        />
+                                        {type !== 'Edit' && (
+                                            <Image
+                                                src='/assets/icons/close.svg'
+                                                alt="Close icon"
+                                                width={12}
+                                                height={12}
+                                                className="cursor-pointer object-contain invert-0 dark:invert"
+                                            />
+                                        )}
                                     </Badge>
                                 ))}
                             </div>
@@ -230,11 +249,11 @@ const Question = ({ mongoUserId }: Props) => {
         >
             {isSubmitting ? (
                 <>
-                    {type === 'edit' ? 'Editing...' : 'Posting...' }
+                    {type === 'Edit' ? 'Editing...' : 'Posting...' }
                 </>
             ) : (
                 <>
-                    {type === 'edit' ? 'Edit Question' : 'Ask a Question'}
+                    {type === 'Edit' ? 'Edit Question' : 'Ask a Question'}
                 </>
             )}
         </Button>
