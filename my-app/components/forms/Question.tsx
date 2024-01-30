@@ -39,17 +39,17 @@ const Question = ({ mongoUserId, type, questionDetails }: Props) => {
     const router = useRouter();
     const pathname = usePathname();
 
-    const parseQuestionDetails = JSON.parse(questionDetails || '');
+    const parseQuestionDetails = questionDetails && JSON.parse(questionDetails || '');
 
-    const groupedTags = parseQuestionDetails.tags.map((tag: any) => tag.name)
+    const groupedTags = parseQuestionDetails?.tags.map((tag: any) => tag.name)
 
 // SHADCN.form
     // 1. Define your form.
     const form = useForm<z.infer<typeof QuestionsSchema>>({
     resolver: zodResolver(QuestionsSchema),
     defaultValues: {
-        title: parseQuestionDetails.title || '',
-        explanation: parseQuestionDetails.explanation || '',
+        title: parseQuestionDetails?.title || '',
+        explanation: parseQuestionDetails?.explanation || '',
         tags: groupedTags || [],
     },
     })
@@ -65,12 +65,12 @@ const Question = ({ mongoUserId, type, questionDetails }: Props) => {
             if(type === 'Edit') {
 
                 await editQuestion({
-                    questionId: parseQuestionDetails._id,
+                    questionId: parseQuestionDetails?._id,
                     title: values.title,
                     content: values.explanation,
                     path: pathname,
                 })
-                router.push(`/question/${parseQuestionDetails._id}`)
+                router.push(`/question/${parseQuestionDetails?._id}`)
             } else {
                 await createQuestion({
                     title: values.title,
@@ -168,7 +168,7 @@ const Question = ({ mongoUserId, type, questionDetails }: Props) => {
                         }}
                         onBlur={field.onBlur}
                         onEditorChange={(content) => field.onChange(content)}
-                        initialValue={parseQuestionDetails.content || ''}
+                        initialValue={parseQuestionDetails?.content || ''}
                         init={{
                         height: 350,
                         plugins: [      'advlist', 'codesample', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
