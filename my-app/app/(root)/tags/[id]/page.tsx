@@ -1,9 +1,6 @@
 import QuestionCard from '@/components/cards/QuestionCard';
-import Filter from '@/components/shared/Filter';
 import NoResult from '@/components/shared/NoResult';
 import LocalSearchbar from '@/components/shared/search/LocalSearchbar';
-import { QuestionFilters } from '@/constants/filters';
-import { IQuestion } from '@/database/question.model';
 import { getQuestionsByTagId } from '@/lib/actions/tag.action';
 import { URLProps } from '@/types';
 import React from 'react'
@@ -25,7 +22,7 @@ const Page = async ({ params, searchParams }: URLProps) => {
 
       <div className="mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center">
         <LocalSearchbar 
-          route='/'
+          route={`/tags/${params.id}`}
           iconPosition='left'
           imgSrc='/assets/icons/search.svg'
           placeholder='Search Tag Question'
