@@ -11,15 +11,16 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
 
     const result = await getAllUsers({
         searchQuery: searchParams.q,
+        filter: searchParams.filer,
     });
 
   return (
     <>
-    
-    <div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
         <h1 className="h1-bold text-dark100_light900">
             Spring Community
         </h1>
+    
+    <div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
         {/* <Link href='/ask-question' className="flex justify-end max-sm:w-full">
             <Button className="primary-gradient min-h-[46px] px-4 py-3 !text-light-900">
             Ask a Question
@@ -65,7 +66,7 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
                     </p>
                 </Link>
             </div>
-        ) }
+        )}
     </section>
     </>
   )
