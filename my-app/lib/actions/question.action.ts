@@ -16,7 +16,7 @@ export async function getQuestions(params: GetQuestionsParams) {
     try {
         connectToDatabase();
 
-        const { searchQuery } = params;
+        const { searchQuery, filter } = params;
 
         const query: FilterQuery<typeof Question> = {};
 
@@ -27,9 +27,25 @@ export async function getQuestions(params: GetQuestionsParams) {
             ]
         }
 
+        let sortOptions = {};
+        switch (filter) {
+            case "newest":
+                sortOptions = { createdAt: -1 }
+                break;
+            case "frequency":
+                sortOptions = { views: -1 }
+                break;
+            case "unanswered":
+                query.answers = { $size: 0}
+                break;
+            default:
+                break;
+        }
+
         const questions = await Question.find(query)
             .populate({ path: 'tags', model: Tag })
             .populate({ path: 'author', model: User })
+            .sort(sortOptions);
 
         return { questions }
     } catch (error) {
