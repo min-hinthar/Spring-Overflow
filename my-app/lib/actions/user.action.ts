@@ -1,6 +1,6 @@
 'use server'
 
-import {FilterQuery} from 'mongoose'
+import { FilterQuery } from 'mongoose'
 import User from "@/database/user.model";
 import { connectToDatabase } from "../mongoose"
 import { CreateUserParams, DeleteUserParams, GetAllUsersParams, GetSavedQuestionsParams, GetUserByIdParams, GetUserStatsParams, ToggleSaveQuestionParams, UpdateUserParams } from "./shared.types";
@@ -86,7 +86,7 @@ export async function getAllUsers( params: GetAllUsersParams) {
     try {
         connectToDatabase();
 
-        const { searchQuery } = params;
+        const { searchQuery, filter } = params;
 
         // const { page = 1, pageSize = 20, filter, searchQuery } = params;
 
@@ -99,10 +99,29 @@ export async function getAllUsers( params: GetAllUsersParams) {
             ]
         }
 
-        const users = await User.find(query)
-            .sort({ createAt: -1 })
+        let sortOptions = {};
 
-            return {users};
+        switch (filter) {
+            case "new_users":
+                sortOptions = { joinedAt: -1}
+                break;
+            case "old_users":
+                sortOptions = { joinedAt: 1}
+                break;
+            case "top_contributors":
+                sortOptions = { reputation: -1}
+                break;
+    
+            default:
+                break;
+        }
+
+
+        const users = await User.find(query)
+            .sort(sortOptions)
+            console.log(sortOptions)
+
+            return { users };
     } catch (error) {
         console.log(error);
         throw error;
