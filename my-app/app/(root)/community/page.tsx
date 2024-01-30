@@ -4,11 +4,14 @@ import LocalSearchbar from '@/components/shared/search/LocalSearchbar'
 // import { Button } from '@/components/ui/button'
 import { UserFilters } from '@/constants/filters'
 import { getAllUsers } from '@/lib/actions/user.action'
+import { SearchParamsProps } from '@/types'
 import Link from 'next/link'
 
-const Page = async () => {
+const Page = async ({ searchParams }: SearchParamsProps) => {
 
-    const result = await getAllUsers({});
+    const result = await getAllUsers({
+        searchQuery: searchParams.q,
+    });
 
   return (
     <>
