@@ -18,7 +18,7 @@ interface QuestionProps {
         _id: string,
         name: string,
         picture: string,
-        author: string,
+        clerkId: string,
     },
     upvotes: string[],
     views: number,
