@@ -159,6 +159,11 @@ export async function upvoteQuestion(params: QuestionVoteParams) {
             throw new Error('Question not found!')
         }
 
+        // Check if the user is the author of the question
+        if (userId === question.author) {
+            throw new Error('You cannot vote on your own question!');
+        }
+
         // Increment author's reputation by +1/-1 per upvote/revoke to question id
         await User.findByIdAndUpdate(userId, {
             $inc: { reputation: hasupVoted ? -1 : 1 }
@@ -185,7 +190,7 @@ export async function downvoteQuestion(params: QuestionVoteParams) {
         let updateQuery = {};
 
         if(hasdownVoted) {
-            updateQuery = { $pull: { downvote: userId }}
+            updateQuery = { $pull: { downvotes: userId }}
             } else if (hasupVoted) {
                 updateQuery = {
                     $pull: { upvotes: userId },
@@ -201,6 +206,11 @@ export async function downvoteQuestion(params: QuestionVoteParams) {
 
         if(!question) {
             throw new Error('Question not found!')
+        }
+
+        // Check if the user is the author of the question
+        if (userId === question.author) {
+            throw new Error('You cannot vote on your own question!');
         }
 
         // Increment voter's reputation by +2/-2 per downvote
