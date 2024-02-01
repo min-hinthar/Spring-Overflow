@@ -75,11 +75,19 @@ const Answer = ({ question, questionId, authorId }: Props) => {
                 });
 
             const aiAnswer = await response.json();
-
-            console.log(aiAnswer.reply);
-
-            alert(aiAnswer.reply);
+            // console.log(aiAnswer.reply);
+            // alert(aiAnswer.reply);
             
+            // Convert Plain Text to HTML
+            const formattedAnswer = aiAnswer.reply.replace(/\n/g, '<br>');
+
+            if(editorRef.current) {
+                const editor = editorRef.current as any;
+                editor.setContent(formattedAnswer);
+            }
+
+            // TODO: TOAST
+
         } catch (error) {
             console.log(error);
 
@@ -98,14 +106,22 @@ const Answer = ({ question, questionId, authorId }: Props) => {
                 className='btn light-border-2 gap-1.5 rounded-md px-4 py-2.5 lg:mt-2 text-primary-500 shadow dark:text-primary-500'
                 onClick={generateAIanswer}
             >
-                <Image
-                    src='/assets/icons/stars.svg'
-                    alt='star'
-                    width={12}
-                    height={12}
-                    className='object-contain'
-                />
-                Generate AI Answer
+                {isSubmittingAI ? (
+                    <>
+                        ✨ Generating GPT-4-Turbo Answer... ✨
+                    </>
+                ) : (
+                    <>                
+                        <Image
+                            src='/assets/icons/stars.svg'
+                            alt='star'
+                            width={12}
+                            height={12}
+                            className='object-contain'
+                        />
+                        Generate AI Answer
+                    </>
+                )}
             </Button>
         </div>
         <Form {...form}>
