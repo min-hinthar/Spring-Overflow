@@ -12,6 +12,7 @@ import { Button } from '../ui/button';
 import Image from 'next/image';
 import { createAnswer } from '@/lib/actions/answer.action';
 import { usePathname } from 'next/navigation';
+import { POST } from '@/app/api/webhook/route';
 
 
 interface Props {
@@ -23,8 +24,9 @@ interface Props {
 const Answer = ({ question, questionId, authorId }: Props) => {
     const pathname = usePathname();
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [setIsSubmittingAI, setSetIsSubmittingAI] = useState(false)
     const { mode } = useTheme();
-// Tiny.Cloud.React Editor
+    // Tiny.Cloud.React Editor
     const editorRef = useRef(null);
 
     const form = useForm<z.infer<typeof AnswerSchema>>({
@@ -60,6 +62,30 @@ const Answer = ({ question, questionId, authorId }: Props) => {
         }
     }
 
+    const generateAIanswer = async () => {
+        if(!authorId) return;
+
+        setSetIsSubmittingAI(true);
+
+        try {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/chatgpt`, {
+                method: 'POST',
+                body:  JSON.stringify({question}),
+
+            })
+
+            const aiAnswer = await response.json();
+
+            alert(aiAnswer.reply)
+            
+        } catch (error) {
+            console.log(error);
+            throw error;
+        } finally {
+            setSetIsSubmittingAI(false);
+        }
+    }
+
   return (
     <div>
         <div className='flex flex-col justify-between gap-5 sm:flex-row sm:items-center sm:gap-2'>
@@ -68,7 +94,7 @@ const Answer = ({ question, questionId, authorId }: Props) => {
             </h4>
             <Button 
                 className='btn light-border-2 gap-1.5 rounded-md px-4 py-2.5 lg:mt-2 text-primary-500 shadow dark:text-primary-500'
-                onClick={() => {}}
+                onClick={generateAIanswer}
             >
                 <Image
                     src='/assets/icons/stars.svg'
