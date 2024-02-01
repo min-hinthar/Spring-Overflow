@@ -98,9 +98,15 @@ export async function createQuestion(params: CreateQuestionParams) {
         })
 
         // Create a record of User's ask_question action
-
+        await Interaction.create({
+            user: author,
+            action: 'ask_question',  
+            question: question._id,
+            tags: tagDocuments,
+        })
 
         // Increment author's reputation by +5 points for badge status
+        await User.findByIdAndUpdate(author, { $inc: { reputation: 5}})
 
         revalidatePath(path);
     } catch (error) {
@@ -153,7 +159,15 @@ export async function upvoteQuestion(params: QuestionVoteParams) {
             throw new Error('Question not found!')
         }
 
-        // Increment author's reputation
+        // Increment author's reputation by +1/-1 per upvote/revoke to question id
+        await User.findByIdAndUpdate(userId, {
+            $inc: { reputation: hasupVoted ? -1 : 1 }
+        })
+
+        // Increment author's reputation by +10/-10 per upvote/downvote to question id
+        await User.findByIdAndUpdate(question.author, {
+            $inc: { reputation: hasupVoted ? -10 : 10 }
+        })
 
         revalidatePath(path);
     } catch (error) {

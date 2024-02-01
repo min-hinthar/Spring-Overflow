@@ -10,10 +10,10 @@ import Link from 'next/link'
 
 const Page = async ({ searchParams }: SearchParamsProps) => {
 
-    const result = await getAllUsers({
-        searchQuery: searchParams.q,
-        filter: searchParams.filer,
-        page: searchParams.page ? +searchParams.page : 1,
+    const { users, isNext } = await getAllUsers({
+        searchQuery: searchParams?.q,
+        filter: searchParams?.filter,
+        page: searchParams?.page ? +searchParams.page : 1,
     });
 
   return (
@@ -46,8 +46,8 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
     </div>
 
     <section className='mt-12 flex flex-wrap gap-4'>
-        {result.users.length > 0 ? (
-            result.users.map((user) => (
+        {users.length > 0 ? (
+            users.map((user) => (
                 <UserCard 
                     key={user._id} 
                     user={user} 
@@ -74,7 +74,7 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
     <div className="mt-10">
         <Pagination 
             pageNumber={searchParams?.page ? +searchParams.page: 1}
-            isNext={result.isNext}
+            isNext={isNext}
         />
     </div>
 
