@@ -94,87 +94,105 @@ export async function getAnswers(params: GetAnswersParams) {
 
 export async function upvoteAnswer(params: AnswerVoteParams) {
     try {
-        connectToDatabase();
+    connectToDatabase();
 
-        const  { userId, answerId, hasupVoted, hasdownVoted, path } = params;
+    const { userId, answerId, hasupVoted, hasdownVoted, path } = params;
 
-        let updateQuery = {};
+    let updateQuery = {};
 
-        if(hasupVoted) {
-            updateQuery = { $pull: { upvotes: userId }}
-            } else if (hasdownVoted) {
-                updateQuery = {
-                    $pull: { downvotes: userId },
-                    $push: { upvotes: userId }
-                }
-            } else {
-                updateQuery = {
-                    $addToSet: { upvotes: userId} 
-            }
-        }
+    if (hasupVoted) {
+        // If the user has already upvoted, remove their upvote
+        updateQuery = { $pull: { upvotes: userId } };
+    } else if (hasdownVoted) {
+        // If the user has already downvoted, remove their downvote and add their upvote
+        updateQuery = {
+        $pull: { downvotes: userId },
+        $push: { upvotes: userId },
+        };
+    } else {
+        // If the user has not voted yet, add their upvote
+        updateQuery = {
+        $addToSet: { upvotes: userId },
+        };
+    }
 
-        const answer = await Answer.findByIdAndUpdate(answerId, updateQuery, { new: true })
+    const answer = await Answer.findByIdAndUpdate(answerId, updateQuery, {
+        new: true,
+    });
 
-        if(!answer) {
-            throw new Error('Answer not found!')
-        }
+    if (!answer) {
+        throw new Error("Answer not found!");
+    }
 
-        // Increment voter's reputation by +2/-2 per upvote action on an answer
-        await User.findByIdAndUpdate(userId, 
-            { $inc: { reputation: hasupVoted ? -2 : 2 }}
-        )
-        // Increment author's reputation by +10/-10 per upvote received
-        await User.findByIdAndUpdate(answer.author, 
-            { $inc: { reputation: hasupVoted ? -10 : 10 }}
-        )
+    if (userId === answer.author) {
+        throw new Error("You cannot vote on your own answer!");
+    }
 
-        revalidatePath(path);
+    // Increment voter's reputation by +2 per upvote action on an answer
+    await User.findByIdAndUpdate(userId, {
+        $inc: { reputation: hasupVoted ? -2 : 2 },
+    });
+    // Increment author's reputation by +10 per upvote received
+    await User.findByIdAndUpdate(answer.author, {
+        $inc: { reputation: hasupVoted ? -10 : 10 },
+    });
+
+    revalidatePath(path);
     } catch (error) {
-        console.log(error);
-        throw error;
+    console.log(error);
+    throw error;
     }
 }
-
+    
 export async function downvoteAnswer(params: AnswerVoteParams) {
     try {
-        connectToDatabase();
+    connectToDatabase();
 
-        const  { userId, answerId, hasupVoted, hasdownVoted, path } = params;
+    const { userId, answerId, hasupVoted, hasdownVoted, path } = params;
 
-        let updateQuery = {};
+    let updateQuery = {};
 
-        if(hasdownVoted) {
-            updateQuery = { $pull: { downvote: userId }}
-            } else if (hasupVoted) {
-                updateQuery = {
-                    $pull: { upvotes: userId },
-                    $push: { downvotes: userId }
-                }
-            } else {
-                updateQuery = {
-                    $addToSet: { downvotes: userId} 
-            }
-        }
+    if (hasdownVoted) {
+        // If the user has already downvoted, remove their downvote
+        updateQuery = { $pull: { downvotes: userId } };
+    } else if (hasupVoted) {
+        // If the user has already upvoted, remove their upvote and add their downvote
+        updateQuery = {
+        $pull: { upvotes: userId },
+        $push: { downvotes: userId },
+        };
+    } else {
+        // If the user has not voted yet, add their downvote
+        updateQuery = {
+        $addToSet: { downvotes: userId },
+        };
+    }
 
-        const answer = await Answer.findByIdAndUpdate(answerId, updateQuery, { new: true })
+    const answer = await Answer.findByIdAndUpdate(answerId, updateQuery, {
+        new: true,
+    });
 
-        if(!answer) {
-            throw new Error('Answer not found!')
-        }
+    if (userId === answer.author) {
+        throw new Error("You cannot vote on your own answer!");
+    }
 
-        // Increment author's reputation
-        await User.findByIdAndUpdate(userId, 
-            { $inc: { reputation: hasdownVoted ? -2 : 2 }}
-        )
-        // Increment author's reputation by +10/-10 per upvote received
-        await User.findByIdAndUpdate(answer.author, 
-            { $inc: { reputation: hasdownVoted ? -10 : 10 }}
-        )
+    if (!answer) {
+        throw new Error("Answer not found!");
+    }
 
-        revalidatePath(path);
+    // Decrement voter's reputation by -2 per downvote action on an answer
+    await User.findByIdAndUpdate(userId, {
+        $inc: { reputation: hasdownVoted ? 2 : -2 },
+    });
+    // Decrement author's reputation by -10 per downvote received
+    await User.findByIdAndUpdate(answer.author, {
+        $inc: { reputation: hasdownVoted ? 10 : -10 },
+    });
+
+    revalidatePath(path);
     } catch (error) {
-        console.log(error);
-        throw error;
+    console.log(error);
+    throw error;
     }
 }
 
