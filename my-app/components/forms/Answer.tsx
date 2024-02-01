@@ -12,7 +12,6 @@ import { Button } from '../ui/button';
 import Image from 'next/image';
 import { createAnswer } from '@/lib/actions/answer.action';
 import { usePathname } from 'next/navigation';
-import { POST } from '@/app/api/webhook/route';
 
 
 interface Props {
@@ -24,7 +23,7 @@ interface Props {
 const Answer = ({ question, questionId, authorId }: Props) => {
     const pathname = usePathname();
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [setIsSubmittingAI, setSetIsSubmittingAI] = useState(false)
+    const [isSubmittingAI, setIsSubmittingAI] = useState(false)
     const { mode } = useTheme();
     // Tiny.Cloud.React Editor
     const editorRef = useRef(null);
@@ -65,24 +64,27 @@ const Answer = ({ question, questionId, authorId }: Props) => {
     const generateAIanswer = async () => {
         if(!authorId) return;
 
-        setSetIsSubmittingAI(true);
+        setIsSubmittingAI(true);
 
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/chatgpt`, {
-                method: 'POST',
-                body:  JSON.stringify({question}),
-
-            })
+            const response = await fetch(
+                `${process.env.NEXT_PUBLIC_SERVER_URL}/api/chatgpt`,
+                {
+                    method: 'POST',
+                    body: JSON.stringify({ question })
+                });
 
             const aiAnswer = await response.json();
 
-            alert(aiAnswer.reply)
+            console.log(aiAnswer.reply);
+
+            alert(aiAnswer.reply);
             
         } catch (error) {
             console.log(error);
-            throw error;
+
         } finally {
-            setSetIsSubmittingAI(false);
+            setIsSubmittingAI(false);
         }
     }
 
