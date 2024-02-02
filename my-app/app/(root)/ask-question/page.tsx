@@ -4,6 +4,11 @@ import { auth } from '@clerk/nextjs';
 import { redirect } from 'next/navigation';
 import React from 'react'
 
+import type { Metadata } from 'next';
+
+export const metadata: Metadata  = { 
+  title: 'Ask Question | Spring Overflow',
+};
 
 const Page = async () => {
 

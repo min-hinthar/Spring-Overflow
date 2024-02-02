@@ -10,6 +10,14 @@ import { getQuestions } from "@/lib/actions/question.action";
 import { SearchParamsProps } from "@/types";
 import Link from "next/link";
 
+import type { Metadata } from 'next';
+
+export const metadata: Metadata  = { 
+  title: 'Home | Spring Overflow',
+  description: 'Spring Overflow is a community-centered platform/web app that combines web development and social justice, allowing users to ask and answer questions about web development, coding and programming, while supporting the Burma Spring Revolution and Civil Disobedience Movement.',
+  
+};
+
 export default async function Home({ searchParams }: SearchParamsProps) {
 
   const result = await getQuestions({
@@ -17,14 +25,6 @@ export default async function Home({ searchParams }: SearchParamsProps) {
     filter: searchParams.filter,
     page: searchParams.page ? +searchParams.page : 1,
   });
-
-  //Fetch Recommended
-
-  // const isLoading = true;
-
-  // if(isLoading) {
-  //   return <Loading/>
-  // }
 
   return (
     <>
