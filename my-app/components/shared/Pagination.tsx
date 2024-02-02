@@ -52,7 +52,7 @@ const Pagination = ({ pageNumber, isNext}: Props) => {
         <Button
             disabled={!isNext}
             onClick={() => handleNavigation('next')}
-            className='light-border-2 btn border flex min-h-[36px] items-center justify-center gap-2 border'
+            className='light-border-2 btn flex min-h-[36px] items-center justify-center gap-2 border'
         >   
             <p className='body-medium text-dar200_light800'>
                 Next
