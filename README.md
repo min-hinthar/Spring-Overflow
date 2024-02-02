@@ -1,10 +1,10 @@
 # Spring-Overflow
-Spring Overflow is a community-centered platform/web app that combines web development and social justice, allowing users to ask and answer questions about web development, coding and programming, and search for software engineering jobs, while supporting the Burma Spring Revolution and Civil Disobedience Movement.
+Spring Overflow is a community-centered platform progressive web app that combines web development and social justice, allowing users to ask and answer questions about software engineering, coding and programming problems, and search for software engineering jobs, while supporting the Burma Spring Revolution and Civil Disobedience Movement.
 
 Deployed URL: https://spring-overflow.vercel.app/
 
 ## Overview
-This web app is powered by NextJS14 and cutting-edge tech stacks. It has a gamification system that rewards users with reputation points and privileges for their contributions. It also supports the Burma Spring Revolution and Civil Disobedience Movement, a nonviolent resistance movement that opposes the military coup in Myanmar. You can create and share questions and answers that raise awareness and solidarity for the cause.
+This web app is powered by Next.js 14 and various cutting-edge tech stacks. It has a gamification system that rewards users with reputation points and privileges for their contributions. It also supports the Burma Spring Revolution and Civil Disobedience Movement, a nonviolent resistance movement that opposes the military coup in Myanmar. You can create and share questions and answers that raise awareness and solidarity for the cause.
 
 ## Features
 
@@ -26,6 +26,21 @@ Spring Overflow has the following features and functionalities:
 Spring Overflow is built using the following cutting-edge technologies:
 
 - [NEXT.js 14]:  React-based web development framework that offers a comprehensive suite of functionalities encompassing pre-rendering, server-side rendering, static site generation, and beyond.
+- React
+- MongoDB: A NoSQL database that stores data in JSON-like documents. MongoDB is flexible, scalable, and compatible with React and Next.js.
+- Mongoose
+- Vercel: A cloud platform that deploys and hosts Next.js applications. Vercel provides a seamless deployment experience, automatic SSL, and global CDN.
+- Clerk
+- Radix UI
+- Tailwind CSS
+- Prism Js
+- Zod
+- Eslint
+- Prettier
+- Lucide-React
+- Tiny MCE
+- SVIX
+- TypeScript
 
 ## Installation
 
