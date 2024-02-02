@@ -2,17 +2,16 @@ import Filter from '@/components/shared/Filter'
 import NoResult from '@/components/shared/NoResult'
 import Pagination from '@/components/shared/Pagination'
 import LocalSearchbar from '@/components/shared/search/LocalSearchbar'
-// import { Button } from '@/components/ui/button'
 import { TagFilters, UserFilters } from '@/constants/filters'
 import { getAllTags } from '@/lib/actions/tag.action'
 import { SearchParamsProps } from '@/types'
 import Link from 'next/link'
 
-
 import type { Metadata } from 'next';
 
 export const metadata: Metadata  = { 
-  title: 'Tags | Spring Overflow',
+    title: 'Tags | Spring Overflow',
+    description: 'Tags Page of Spring Overflow'
 };
 
 const Page = async ({ searchParams }: SearchParamsProps) => {
@@ -30,11 +29,6 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
         <h1 className="h1-bold text-dark100_light900">
             All Tags
         </h1>
-        {/* <Link href='/ask-question' className="flex justify-end max-sm:w-full">
-            <Button className="primary-gradient min-h-[46px] px-4 py-3 !text-light-900">
-            Ask a Question
-            </Button>
-        </Link> */}
     </div>
 
     <div className="mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center">

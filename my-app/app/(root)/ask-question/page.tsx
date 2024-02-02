@@ -8,6 +8,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata  = { 
   title: 'Ask Question | Spring Overflow',
+  description: 'Ask Question Page of Spring Overflow'
 };
 
 const Page = async () => {
