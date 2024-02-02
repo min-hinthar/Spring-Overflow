@@ -12,6 +12,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata  = { 
   title: 'Collection | Spring Overflow',
+  description: 'Collection Page of Spring Overflow'
 };
 
 export default async function Home({ searchParams }: SearchParamsProps) {
