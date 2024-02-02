@@ -12,6 +12,7 @@ import { Button } from '../ui/button';
 import Image from 'next/image';
 import { createAnswer } from '@/lib/actions/answer.action';
 import { usePathname } from 'next/navigation';
+import { toast } from '../ui/use-toast'
 
 
 interface Props {
@@ -53,6 +54,11 @@ const Answer = ({ question, questionId, authorId }: Props) => {
 
                 editor.setContent('');
             }
+
+            return toast({
+                title: `Answer Submit ${!isSubmitting ? 'Successful!' : 'Failed!'}`,
+                variant: !isSubmitting ? 'default' : 'destructive',
+            });;
         } catch (error) {
             console.log(error)
             throw error;
@@ -87,6 +93,7 @@ const Answer = ({ question, questionId, authorId }: Props) => {
             }
 
             // TODO: TOAST
+
 
         } catch (error) {
             console.log(error);
@@ -145,11 +152,26 @@ const Answer = ({ question, questionId, authorId }: Props) => {
                                 onEditorChange={(content) => field.onChange(content)}
                                 init={{
                                 height: 350,
-                                plugins: [      'advlist', 'codesample', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
-                                'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
-                                'media', 'table', 'emoticons', 'advtemplate', 'help'
+                                plugins: [      
+                                    'advlist',
+                                    'autolink',
+                                    'lists',
+                                    'link',
+                                    'image',
+                                    'charmap',
+                                    'preview',
+                                    'anchor',
+                                    'searchreplace',
+                                    'visualblocks',
+                                    'codesample',
+                                    'fullscreen',
+                                    'insertdatetime',
+                                    'media',
+                                    'table'
                                 ],
-                                toolbar: 'undo redo | codesample | styles | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullscreen | forecolor backcolor emoticons | help',
+                                toolbar: 'undo redo |  ' +
+                                'codesample | bold italic forecolor | alignleft aligncenter ' +
+                                'alignright alignjustify | bullist numlist ',
                                 menu: {
                                     favs: { title: 'My Favorites', items: 'code visualaid | searchreplace | emoticons' }
                                 },

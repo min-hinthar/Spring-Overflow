@@ -171,11 +171,26 @@ const Question = ({ mongoUserId, type, questionDetails }: Props) => {
                         initialValue={parseQuestionDetails?.content || ''}
                         init={{
                         height: 350,
-                        plugins: [      'advlist', 'codesample', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
-                        'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
-                        'media', 'table', 'emoticons', 'advtemplate', 'help'
+                        plugins: [      
+                            'advlist',
+                            'autolink',
+                            'lists',
+                            'link',
+                            'image',
+                            'charmap',
+                            'preview',
+                            'anchor',
+                            'searchreplace',
+                            'visualblocks',
+                            'codesample',
+                            'fullscreen',
+                            'insertdatetime',
+                            'media',
+                            'table'
                         ],
-                        toolbar: 'undo redo | codesample | styles | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullscreen | forecolor backcolor emoticons | help',
+                        toolbar: 'undo redo |  ' +
+                        'codesample | bold italic forecolor | alignleft aligncenter ' +
+                        'alignright alignjustify | bullist numlist ',
                         menu: {
                             favs: { title: 'My Favorites', items: 'code visualaid | searchreplace | emoticons' }
                         },
