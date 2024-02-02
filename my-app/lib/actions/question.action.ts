@@ -80,7 +80,7 @@ export async function createQuestion(params: CreateQuestionParams) {
             author
         })
 
-        const tagDocuments = [];
+        const tagDocuments: string[] = [];
 
         // Create Tags if !exist with new _id to Question
         for (const tag of tags) {
