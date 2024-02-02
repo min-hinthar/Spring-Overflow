@@ -6,25 +6,46 @@ import Pagination from "@/components/shared/Pagination";
 import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
 import { Button } from "@/components/ui/button";
 import { HomePageFilters } from "@/constants/filters";
-import { getQuestions } from "@/lib/actions/question.action";
+import { getQuestions, getRecommendedQuestions } from "@/lib/actions/question.action";
 import { SearchParamsProps } from "@/types";
 import Link from "next/link";
 
 import type { Metadata } from 'next';
+import { auth } from "@clerk/nextjs";
 
 export const metadata: Metadata  = { 
   title: 'Home | Spring Overflow',
   description: 'Spring Overflow is a community-centered platform/web app that combines web development and social justice, allowing users to ask and answer questions about web development, coding and programming, while supporting the Burma Spring Revolution and Civil Disobedience Movement.',
-  
 };
 
 export default async function Home({ searchParams }: SearchParamsProps) {
 
-  const result = await getQuestions({
+  const { userId } = auth();
+
+  let result;
+
+  if(searchParams?.filter === 'recommended') {
+    if(userId) {
+      result = await getRecommendedQuestions({
+        userId,
+        searchQuery: searchParams.q,
+        page: searchParams.page ? +searchParams.page : 1,
+      });
+    } else {
+      result = {
+        questions: [],
+        isNext: false,
+      }
+    }
+  } else {
+    
+    result = await getQuestions({
     searchQuery: searchParams.q,
     filter: searchParams.filter,
     page: searchParams.page ? +searchParams.page : 1,
   });
+  }
+
 
   return (
     <>
