@@ -20,6 +20,12 @@ export default async function Home({ searchParams }: SearchParamsProps) {
 
   //Fetch Recommended
 
+  // const isLoading = true;
+
+  // if(isLoading) {
+  //   return <Loading/>
+  // }
+
   return (
     <>
       <div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
