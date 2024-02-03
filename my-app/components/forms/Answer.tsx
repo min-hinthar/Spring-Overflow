@@ -67,41 +67,41 @@ const Answer = ({ question, questionId, authorId }: Props) => {
         }
     }
 
-    const generateAIanswer = async () => {
-        if(!authorId) return;
-
+    const generateAiAnswer = async () => {
+        if (!authorId) return;
         setIsSubmittingAI(true);
-
         try {
             const response = await fetch(
-                `${process.env.NEXT_PUBLIC_SERVER_URL}/api/chatgpt`,
-                {
-                    method: 'POST',
-                    body: JSON.stringify({ question })
-                });
+            `${process.env.NEXT_PUBLIC_SERVER_URL}/api/chatgpt`,
+            {
+                method: 'POST',
+                body: JSON.stringify({ question })
+            }
+            );
 
             const aiAnswer = await response.json();
-            // console.log(aiAnswer.reply);
-            // alert(aiAnswer.reply);
-            
-            // Convert Plain Text to HTML
-            const formattedAnswer = aiAnswer.reply.replace(/\n/g, '<br>');
 
-            if(editorRef.current) {
-                const editor = editorRef.current as any;
-                editor.setContent(formattedAnswer);
+            // convert plaintext to html
+            const formattedAnswer = aiAnswer.reply.replace(/\n/g, '<br />');
+            if (editorRef.current) {
+            const editor = editorRef.current as any;
+            editor.setContent(formattedAnswer);
             }
-
-            // TODO: TOAST
-
-
-        } catch (error) {
-            console.log(error);
-
+        //  toast notification
+        return toast({
+            title: `${aiAnswer.reply && 'Ai answer generated'}`,
+            description: 'Ai answer generated successfully'
+        });
+        } catch (error: any) {
+        return toast({
+            title: `${error?.message}`,
+            variant: 'destructive',
+            description: `${error?.code}`
+        });
         } finally {
-            setIsSubmittingAI(false);
+        setIsSubmittingAI(false);
         }
-    }
+    };
 
   return (
     <div>
@@ -111,7 +111,7 @@ const Answer = ({ question, questionId, authorId }: Props) => {
             </h4>
             <Button 
                 className='btn light-border-2 gap-1.5 rounded-md px-4 py-2.5 lg:mt-2 text-primary-500 shadow dark:text-primary-500'
-                onClick={generateAIanswer}
+                onClick={generateAiAnswer}
             >
                 {isSubmittingAI ? (
                     <>
