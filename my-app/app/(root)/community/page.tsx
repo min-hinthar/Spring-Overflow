@@ -34,7 +34,7 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
             route='/community'
             iconPosition='left'
             imgSrc='/assets/icons/search.svg'
-            placeholder='Search for an awesome member!'
+            placeholder='Search Members!'
             otherClasses='flex-1'
         />
 

@@ -156,7 +156,7 @@ const Question = ({ mongoUserId, type, questionDetails }: Props) => {
             render={({ field }) => (
             <FormItem className="flex w-full flex-col gap-3">
                 <FormLabel className="paragraph-semibold text-dark400_light800">
-                    Detailed Explanation of your Problem <span className="text-primary-500">*</span>
+                    Detailed Explanation of your Question/Issue <span className="text-primary-500">*</span>
                 </FormLabel>
                 <FormControl className="nt-3.5">
                     {/* TODO: Add an Editor Component for Description of Form */}
@@ -170,7 +170,7 @@ const Question = ({ mongoUserId, type, questionDetails }: Props) => {
                         onEditorChange={(content) => field.onChange(content)}
                         initialValue={parseQuestionDetails?.content || ''}
                         init={{
-                        height: 350,
+                        height: 400,
                         plugins: [      
                             'advlist',
                             'autolink',

@@ -21,7 +21,7 @@ Spring Overflow has the following features and functionalities:
 - Users can view their profile and activity, as well as other users’ profiles and activity, and follow or unfollow other users.
 - Users can search for questions and answers based on keywords, tags, or filters, and sort them by relevance, votes, date, or views.
 - Users can receive real-time updates on their questions, answers, comments, votes, badges, and notifications, using WebSocket and RabbitMQ.
-- Users can create and share questions and answers that raise awareness and solidarity for the Burma Spring Revolution and Civil Disobedience Movement, a nonviolent resistance movement that opposes the military coup in Myanmar.
+- Users can create and share questions and answers that raise awareness and solidarity for the Burma Spring Revolution and Civil Disobedience Movement, a resistance movement that opposes the military coup in Myanmar.
 - Users can connect and network with other developers and supporters who care about the same causes, and exchange ideas, resources, and opportunities. Users can also join or create groups and events related to the movement, and invite or join other users.
 - Users can learn and improve their web development skills and knowledge, and apply them to their own projects or careers. Users can also help and mentor other users who are new or struggling with web development, and provide feedback and suggestions. Users can also showcase their portfolio and achievements, and attract potential employers or clients.
 
@@ -29,42 +29,37 @@ Spring Overflow has the following features and functionalities:
 
 Spring Overflow is built using the following cutting-edge technologies:
 
-- [NEXT.js 14]:  React-based web development framework that offers a comprehensive suite of functionalities encompassing pre-rendering, server-side rendering, static site generation, and beyond.
-- React
-- MongoDB: A NoSQL database that stores data in JSON-like documents. MongoDB is flexible, scalable, and compatible with React and Next.js.
-- Mongoose
-- Vercel: A cloud platform that deploys and hosts Next.js applications. Vercel provides a seamless deployment experience, automatic SSL, and global CDN.
-- Clerk
-- Radix UI
-- Tailwind CSS: A utility-first CSS framework for styling the UI
-- Prism Js
-- Zod
-- Eslint
-- Prettier
-- Lucide-React
-- Tiny MCE
-- SVIX
-- TypeScript
+- [Next.js 14]: A React-based web development framework that offers a comprehensive suite of functionalities encompassing pre-rendering, server-side rendering, static site generation, and beyond.
+- [React]: A JavaScript library for building user interfaces. It allows you to create reusable components and manage the state and lifecycle of your app.
+- [MongoDB]: A NoSQL database that stores data in JSON-like documents. MongoDB is flexible, scalable, and compatible with React and Next.js.
+- [Mongoose]: An object data modeling (ODM) library for MongoDB and Node.js. It provides a schema-based solution to model your application data and perform validation, querying, and business logic.
+- [Vercel]: A cloud platform that deploys and hosts Next.js applications. Vercel provides a seamless deployment experience, automatic SSL, and global CDN.
+- [Clerk]: A complete user management solution for Next.js applications. It handles authentication, authorization, user profiles, and more.
+- [Radix UI]: A low-level UI component library for building high-quality, accessible design systems and web apps.
+- [Tailwind CSS]: A utility-first CSS framework for styling the UI. It allows you to create responsive and custom designs without writing any CSS code. It also comes with a lot of pre-built components and plugins - that you can use to enhance your app’s appearance and functionality.
+- [Prism Js]: A lightweight, extensible syntax highlighter for web pages. It supports a variety of languages and formats, and can be easily customized and extended.
+- [Zod]: A TypeScript-first schema validation library. It allows you to define schemas for your data and perform type-safe parsing and validation.
+- [Eslint]: A pluggable and configurable linter tool for identifying and reporting on patterns in JavaScript. It helps you to find and fix problems in your code and enforce code style and best practices.
+- [Prettier]: An opinionated code formatter for JavaScript and other languages. It helps you to format your code consistently and save time and energy.
+- [Lucide-React]: A collection of simple and beautiful SVG icons for React. It is based on the Lucide icon set, which is designed to be clear and minimalistic.
+- [Tiny MCE]: A rich text editor for the web. It allows you to create and edit content with a variety of features and options, such as formatting, media, plugins, and more.
+- [SVIX]: A webhooks as a service platform. It allows you to easily send and receive webhooks from your app, with features like retries, dashboard, logs, and more.
+- [TypeScript]: A superset of JavaScript that adds static type definitions and other features. It helps you to write more reliable and maintainable code, and catch errors before they happen.
 
 ## 🛠️ Installation
 
-To run the web app locally, you need to have Java, Maven, and Docker installed on your machine. You also need to have a Google API key, a GitHub API key, which you can get from their respective websites.
+To run the web app locally, you need to have Java, Maven, and Docker installed on your machine. Then, follow these steps:
 
-- Clone the repository from GitHub:
-  - git clone https://github.com/min-hinthar/Spring-Overflow.git
-    
+- Clone this repository: git clone https://github.com/min-hinthar/Spring-Overflow.git
+- Install the dependencies: npm install
+- Create a .env file in the root directory and add your API keys as environment variables.
 - Navigate to the project directory and build the project with Maven:
   - cd Spring-Overflow
   - mvn clean install
-    
-- Create a .env file in the root directory and add your API keys as environment variables:
-  - GOOGLE_API_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-  - GITHUB_API_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-
 - Start the Docker containers with Docker Compose:
   - docker-compose up
 
-- Open [http://localhost:8080] in your browser and enjoy using the web app.
+- Open [http://localhost:3000] in your browser and enjoy using the web app.
 
 
 ## Screenshots
@@ -72,11 +67,6 @@ To run the web app locally, you need to have Java, Maven, and Docker installed o
 Here are some screenshots of the web application:
 
 ![Home page]
-![Create page]
-![Marketplace page]
-![NFT details page]
-![My collection page]
-![Donate page]
 
 ## 📖 License
 
