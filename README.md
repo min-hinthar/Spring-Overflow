@@ -1,12 +1,16 @@
-# Spring-Overflow
-Spring Overflow is a community-centered platform progressive web app that combines web development and social justice, allowing users to ask and answer questions about software engineering, coding and programming problems, and search for software engineering jobs, while supporting the Burma Spring Revolution and Civil Disobedience Movement.
+# Spring Overflow 
 
+<img src="./my-app/public/assets/images/springOverflow.png" alt="logo" width="200"/>
+
+Spring Overflow is a community-centered platform progressive web app that combines web development and social justice, allowing users to ask and answer questions about software engineering, coding and programming problems, and search for software engineering jobs. By using Spring Overflow, you can not only improve your web development skills, but also contribute to the Burma Spring Revolution and Civil Disobedience Movement.
+
+### 🌐 Demo
 Deployed URL: https://spring-overflow.vercel.app/
 
-## Overview
-This web app is powered by Next.js 14 and various cutting-edge tech stacks. It has a gamification system that rewards users with reputation points and privileges for their contributions. It also supports the Burma Spring Revolution and Civil Disobedience Movement, a nonviolent resistance movement that opposes the military coup in Myanmar. You can create and share questions and answers that raise awareness and solidarity for the cause.
+## 📝 Overview
+Spring Overflow is a web app for web developers who want to learn, share, and connect with each other, while also supporting the Burma Spring Revolution and Civil Disobedience Movement. This web app is powered by Next.js 14 and various cutting-edge tech stacks. It has a gamification system that rewards users with reputation points and privileges for their contributions. It aims to can provide a safe and reliable platform to create and share questions and answers that raise awareness and solidarity for the Burma Spring Revolution movement.
 
-## Features
+## ✨ Features
 
 Spring Overflow has the following features and functionalities:
 
@@ -21,7 +25,7 @@ Spring Overflow has the following features and functionalities:
 - Users can connect and network with other developers and supporters who care about the same causes, and exchange ideas, resources, and opportunities. Users can also join or create groups and events related to the movement, and invite or join other users.
 - Users can learn and improve their web development skills and knowledge, and apply them to their own projects or careers. Users can also help and mentor other users who are new or struggling with web development, and provide feedback and suggestions. Users can also showcase their portfolio and achievements, and attract potential employers or clients.
 
-## Tech-Stacks
+## 🚀 Tech-Stacks
 
 Spring Overflow is built using the following cutting-edge technologies:
 
@@ -32,7 +36,7 @@ Spring Overflow is built using the following cutting-edge technologies:
 - Vercel: A cloud platform that deploys and hosts Next.js applications. Vercel provides a seamless deployment experience, automatic SSL, and global CDN.
 - Clerk
 - Radix UI
-- Tailwind CSS
+- Tailwind CSS: A utility-first CSS framework for styling the UI
 - Prism Js
 - Zod
 - Eslint
@@ -42,7 +46,7 @@ Spring Overflow is built using the following cutting-edge technologies:
 - SVIX
 - TypeScript
 
-## Installation
+## 🛠️ Installation
 
 To run the web app locally, you need to have Java, Maven, and Docker installed on your machine. You also need to have a Google API key, a GitHub API key, which you can get from their respective websites.
 
@@ -74,15 +78,15 @@ Here are some screenshots of the web application:
 ![My collection page]
 ![Donate page]
 
-## License
+## 📖 License
 
-This project is licensed under the MIT License. See the [LICENSE] file for more details.
+Spring Overflow is open source and licensed under the MIT license. You can find the code base and the README file on GitHub. I welcome any feedback, suggestions, or contributions to improve the project and make it more useful for the community.
 
 ## Feedback
 
 If you have any feedback, suggestions, or questions, feel free to contact me at min@mandalaymorningstar.com or open an issue on GitHub. I would love to hear from you and improve the project. Thank you for using and supporting the web app.
 
-## Acknowledgements
+## 🙏 Acknowledgements
 
 This project is inspired by the course [Dev Overflow] by JS Mastery and the Burmese Spring Revolution Civil Disobedience Movement. The project aims to support the cause of democracy and human rights in Myanmar through cutting-edge web development tech stacks.
 
@@ -90,6 +94,4 @@ GitHub: https://github.com/min-hinthar
 Email: min@mandalaymorningstar.com 
 LinkedIn: https://www.linkedin.com/in/minkkhant93/ 
 Portfolio: https://minkkhant-portfolio.netlify.app/ 
-
-#webdevelopment #nextjs14
 
