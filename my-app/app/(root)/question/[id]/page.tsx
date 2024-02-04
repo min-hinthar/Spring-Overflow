@@ -4,10 +4,11 @@ import Metric from '@/components/shared/Metric';
 import ParseHTML from '@/components/shared/ParseHTML';
 import RenderTag from '@/components/shared/RenderTag';
 import Votes from '@/components/shared/Votes';
+import Theme from '@/components/shared/navbar/Theme';
 import { getQuestionById } from '@/lib/actions/question.action'
 import { getUserById } from '@/lib/actions/user.action';
 import { formatAndDivideNumber, getTimestamp } from '@/lib/utils';
-import { auth } from '@clerk/nextjs';
+import { SignIn, auth } from '@clerk/nextjs';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react'
@@ -20,6 +21,25 @@ const Page = async ({ params, searchParams }: any) => {
 
     if(clerkId) {
         mongoUser = await getUserById({ userId: clerkId })
+    } else {
+        return (
+            <>
+                <div className="flex w-full flex-col justify-between p-10 lg:items-center gap-4 sm:flex-row sm:items-center">
+
+                    <Link href='/sign-up' className='mt-4 font-bold text-accent-blue'>
+                        <h1 className="h1-bold text-dark100_light900 mb-5">
+                            🚨 Login or Sign Up! 📢
+                        </h1>
+                        <h2>
+                            Join the Spring Overflow Community!
+                        </h2>
+                        <h2>
+                            Support the Burma Spring Revolution!
+                        </h2>
+                    </Link>
+                </div>
+            </>
+        )
     }
 
     const result = await getQuestionById({ questionId: params.id });
