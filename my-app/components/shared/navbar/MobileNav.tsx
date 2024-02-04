@@ -19,14 +19,15 @@ const NavContent = () => {
     const pathname = usePathname();
 
     return (
-        <section className='flex h-full flex-col gap-6 pt-16 pb-6'>
+        <section className='flex flex-col gap-2 pt-10 mb-5'>
             {sidebarLinks.map((item) => {
                 const isActive = (pathname.includes(item.route) && item.route.length > 1) || pathname === item.route
 
                 return (
                     <SheetClose 
                         asChild 
-                        key={item.route}>
+                        key={item.route}
+                    >
                         <Link 
                             href={item.route} 
                             className={
@@ -83,7 +84,7 @@ const MobileNav = () => {
             </p>
         </Link>
 
-        <div>
+        <div className='no-scrollbar flex h-[calc(100vh-80px)] flex-col justify-between overflow-y-auto'>
             <SheetClose asChild>
                 <NavContent/>
             </SheetClose>
